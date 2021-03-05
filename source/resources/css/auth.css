@@ -1,0 +1,15 @@
+.auth table{
+	border:0;
+	margin: auto;
+}
+.auth td{
+	border:0;
+	text-align:right;
+}
+.auth td:last-child{
+	text-align: center;
+}
+.auth .changeForm{
+	margin-right: 2%;
+	text-align: right;
+}

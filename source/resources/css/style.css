@@ -1,0 +1,94 @@
+
+/* Tags */
+
+body{
+	background-color: black;
+	color: white;
+}
+a{
+	color: inherit;
+	text-decoration: inherit;
+}
+a:hover{
+	color: #427a8e;
+}
+header{
+	background-color: gray;
+	width: 100%;
+	min-height: 50px;
+	height: 10%;
+	position:fixed;
+	top: 0px;
+	left: 0px;
+}
+main{
+	width: 60%;
+	margin: auto;
+	padding-top: 5%;
+}
+fromphp{
+	font-style: italic;
+}
+
+/* Classes */
+
+.flex-container{
+	text-align: center;
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+}
+.flex-between{
+	justify-content: space-between;
+}
+.flex-center{
+	justify-content: center;
+}
+.flex-item{
+	margin: auto;
+	flex-grow: 1;
+}
+.flex-item-first{
+	text-align: left;
+	margin-left: 2%;
+}
+.flex-item-last{
+	text-align: right;
+	margin-right: 2%;
+}
+.flex-grow2{
+	flex-grow: 2;
+}
+.logo{
+	min-width: 50px;
+	height: 80%;
+	background-image: url("/source/resources/img/logo.jpg");
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+.auth-btn{
+    background-color: #ccc;
+    padding:10px;
+    color: #fff;
+}
+.pointer{
+	cursor: pointer;
+}
+.Tright{
+	text-align: right;
+}
+.Tcenter{
+	text-align: center;
+}
+.Tleft{
+	text-align: left;
+}
+.font64{
+	font-size: 64pt;
+}
+.pg-btn{
+	padding: 30px 10%;
+}
+
+/* IDs */
+
