@@ -55,50 +55,37 @@ class Router
 
 				// Создать объект, вызвать action
 				// $conrollerObject = new $controllerName;
-				echo "$controllerName, $actionName() <= ";
-				print_r($parametres);
 				$result = call_user_func_array(array($controllerName, $actionName), $parametres);
+				if(!$result)
+					Router::View("/source/views/Main/404.php");
+				if((ini_get('display_errors') == 1) && !Ajax::isAjax())
+				{
+					echo "$controllerName, $actionName() <= ";
+					print_r($parametres);
+				}
 				exit;
 			}
 		}
 	}
 
-/*	Активация контроллера напрямую, без считывания URI запроса
-public function goUrl(string $uri, $param = [])
+	/**
+	 * Отображение страницы
+	 * @param string $path Путь к отображаемому документу
+	 */
+	public static function View(string $path, $params = null)
 	{
-		foreach ($this->routes as $uriPattern => $path) 
-		{
-			if(preg_match("~$uriPattern~", $uri))
-			{
-				//Получаем внутренний путь из внешнего согласно правилу
-				$internalRoute = preg_replace("~$uriPattern~", $path, $uri);
-
-				//Определить контроллер, action и параметры
-				$parametres = explode("/", $internalRoute);
-				$controllerName = ucfirst(array_shift($parametres))."Controller";
-				$actionName = "action".ucfirst(array_shift($parametres));
-
-				//Подключить файл класса-контроллера
-				$controllerFile = ROOT."/source/controllers/".$controllerName.".php";
-				if(file_exists($controllerFile))
-					include_once($controllerFile);
-				
-				$parametres = array_merge($parametres, $param);
-
-				// Создать объект, вызвать action
-				$conrollerObject = new $controllerName;
-				$result = call_user_func_array(array($conrollerObject, $actionName), $parametres);
-				if($result != null)
-				{
-					exit;
-				}
-				else
-				{
-					MainController::actionError();
-				}
-			}
-		}
+		require_once(ROOT."/source/views/Main/head.php");
+		require_once(ROOT.$path);
+		require_once(ROOT."/source/views/Main/foot.php");
 	}
-*/
+
+	/**
+	 * Ошибка 404
+	 */
+	public static function Error404()
+	{
+		Router::View("/source/views/Main/404.php");
+		return true;
+	}
 }
 ?>

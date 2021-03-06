@@ -7,19 +7,18 @@ class AuthController
 {
 	/**
 	 * Представление авторизации
-	 * @param array $err Массив ошибок предыдущих попыток
 	 */
-	public static function actionSignin(array $err = array())
+	public static function actionSignin()
 	{
-		require_once(ROOT."/source/views/Auth/signin.php");
+		Router::View("/source/views/Auth/signin.php");
 	}
 
 	/**
 	 * Представление регистрации
 	 */
-	public static function actionSignup(array $err = array())
+	public static function actionSignup()
 	{
-		require_once(ROOT."/source/views/Auth/signup.php");
+		Router::View("/source/views/Auth/signup.php");
 	}
 
 	/**
@@ -60,7 +59,7 @@ class AuthController
 			}
 			else
 			{
-				MainController::actionError();
+				Router::Error404();
 			}
 		#endregion
 		}

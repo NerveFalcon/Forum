@@ -14,7 +14,7 @@ echo '</pre>';
         <?php endif; ?>
     </div>
 	<div class="authorization" id="authorization">
-		<form action="/check" method="post">
+		<form action="" method="post">
 			<fieldset>
 				<legend>Авторизация</legend>
 				<div class="changeForm">

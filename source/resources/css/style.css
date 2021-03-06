@@ -1,7 +1,11 @@
-
 /* Tags */
-
+html{
+	height: 100%;
+}
 body{
+	min-height: 100%;
+	margin: 0px;
+	padding: 0px;
 	background-color: black;
 	color: white;
 }
@@ -15,28 +19,37 @@ a:hover{
 header{
 	background-color: gray;
 	width: 100%;
-	min-height: 50px;
-	height: 10%;
+	/* min-height: 50px; */
+	height: 3rem;
 	position:fixed;
 	top: 0px;
 	left: 0px;
 }
 main{
 	width: 60%;
-	margin: auto;
-	padding-top: 5%;
+	margin: 0 auto;
+	padding-top: 3.5rem;
 }
 fromphp{
 	font-style: italic;
 }
+footer{
+	position: sticky;
+	/* position: relative; */
+	height: 5vh;
+}
 
 /* Classes */
 
-.flex-container{
+.flex-container-row{
 	text-align: center;
 	display: flex;
 	flex-flow: row nowrap;
 	align-items: center;
+}
+.flex-container-column{
+	display: flex;
+	flex-flow: column nowrap;
 }
 .flex-between{
 	justify-content: space-between;
@@ -44,11 +57,11 @@ fromphp{
 .flex-center{
 	justify-content: center;
 }
-.flex-item{
+.flex-item-row{
 	margin: auto;
 	flex-grow: 1;
 }
-.flex-item-first{
+.flex-item-row-first{
 	text-align: left;
 	margin-left: 2%;
 }
@@ -68,7 +81,7 @@ fromphp{
 }
 .auth-btn{
     background-color: #ccc;
-    padding:10px;
+    padding: 0.5em 2em;
     color: #fff;
 }
 .pointer{
@@ -89,6 +102,15 @@ fromphp{
 .pg-btn{
 	padding: 30px 10%;
 }
+.ColGray{
+	color:gray;
+}
 
 /* IDs */
-
+#wrapper{
+	min-height: 99vh;
+}
+#search{
+	width:100%;
+	font-size: large;
+}

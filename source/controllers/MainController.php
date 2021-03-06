@@ -9,17 +9,9 @@ class MainController
 	 */
 	public static function actionIndex()
 	{
-		require_once(ROOT."/source/views/Main/main.php");
+		Router::View("/source/views/Main/main.php");
 		return true;
 	}
 
-	/**
-	 * Ошибка 404
-	 */
-	public static function actionError()
-	{
-		require_once(ROOT."/source/views/Main/404.php");
-		return true;
-	}
 }
 ?>

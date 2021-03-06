@@ -14,16 +14,12 @@
 		<div class="flex-item-row flex-grow2 flex-container-row flex-center">
 			<a class="flex-item-row" href="/">Главная</a>
 			<a class="flex-item-row" href="/themes">Темы</a>
+			<a class="flex-item-row" href="/search">Поиск</a>
 			<!-- <a class="flex-item-row" href="/products">Продукты</a> -->
 		</div>
 		<div class="flex-item-row flex-item-row-last">
 			<a href="/auth" class="auth-btn">Регистрация/Авторизация</a>
 		</div>
 	</header>
-	<main>
-<section class="404 Tcenter">
-	<h1 class="font64">ERROR 404</h1>
-	<h1>Просим прощения</h1>
-	<h3>но страница, на которую вы желаете попасть,</h3>
-	<h3>отсутствует на нашем сайте</h3>
-</section>
+	<div id="wrapper" class="flex-container-column flex-between">
+		<main>

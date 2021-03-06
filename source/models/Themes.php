@@ -7,9 +7,10 @@ class Themes
 
 	/**
 	 * Возвращает одну тему по id
-	 * @param integer $id
+	 * @param integer $id идентификатор конкретной темы
+	 * @return array Ассоциативный массив, содержащий автора, заголовок и описание темы
 	 */
-	public static function getThemesItemById($id)
+	public static function getThemeInfo($id)
 	{
 		$id = intval($id);
 
@@ -17,34 +18,84 @@ class Themes
 		{
 			$db = Inquiry::getConnection();
 			$db->set_charset('utf-8');
-			$result = $db->query("select login as author, title, date, text "
+			$result = $db->query("select login as author, title, description "
 								."from themes left join users "
 								."on ( themes.id_creator = users.id) "
-								."join messages on ( themes.id = messages.id_theme ) "
-								."where themes.id = $id;"
+								."where themes.id = $id"
 								);
-			return $result->fetch_all(1);
+			return $result->fetch_all(1)[0];
 		}
 	}
 
 	/**
-	 * Возвращает массив тем
+	 * Возвращает количество тем
+	 * @return int Количество тем
 	 */
-	public static function getThemesList($b, $c)
+	public static function getThemesCount()
 	{
 		$db = Inquiry::getConnection();
 		$db->set_charset('utf-8');
-		$result = $db->query("select id, title "
+		$result = $db->query("select count(*) as c from themes where active = 1");
+		return $result->fetch_all(1)[0]['c'];
+	}
+
+	/**
+	 * Возвращает массив тем
+	 * @param int $begin Номер 1й темы на странице
+	 * @param int $count Количество тем на странице
+	 * @return array Массив ассоциативных массивов, содержащих строки результата
+	 */
+	public static function getThemesList(int $begin, int $count)
+	{
+		$db = Inquiry::getConnection();
+		$db->set_charset('utf-8');
+		$result = $db->query("select id, title, description as `desc` "
 							."from themes "
 							."where active = 1 "
 							."order by id "
-							."limit $b, $c"
+							."limit $begin, $count"
 							);
 		return $result->fetch_all(1);
 	}
 
 	/**
-	 * Возвращает описание темы
+	 * Возвращает количество сообщений
+	 * @param int $id Идентификатор темы
+	 * @return int Количество сообщений
+	 */
+	public static function getMsgCount($id)
+	{
+		$db = Inquiry::getConnection();
+		$db->set_charset('utf-8');
+		$result = $db->query("select count(*) as c "
+							."from messeges "
+							."where id_theme = $id"
+							);
+		return $result->fetch_all(1)[0]['c'];
+	}
+
+	/**
+	 * Возвращает массив коммнтариев конкретной темы
+	 * @param int $id Идентификатор темы
+	 * @param int $begin Номер 1й темы на странице
+	 * @param int $count Количество тем на странице
+	 * @return array Массив ассоциативных массивов, содержащих строки результата
+	 */
+	public static function getMsgList(int $id, int $begin, int $count)
+	{
+		$db = Inquiry::getConnection();
+		$db->set_charset('utf-8');
+		$result = $db->query("select id_creator as commentator, date, text "
+							."from messages "
+							."where id_theme = $id "
+							."limit $begin, $count"
+							);
+	}
+
+	/**
+	 * Возвращает первые $n сообшений
+	 * @param int $n Количество сообщений
+	 * @return array Массив ассоциативных массивов, содержащих строки результата
 	 */
 	public static function getThemesMsg(int $n)
 	{
@@ -61,30 +112,9 @@ class Themes
 								.") as rn "
 								."from messages t1 "
 							.") v "
-							."where rn <= $n;");
+							."where rn <= $n");
 		return $result->fetch_all(1);
 	}
 
-	/**
-	 * Возвращает количество тем
-	 */
-	public static function getThemesCount()
-	{
-		$db = Inquiry::getConnection();
-		$db->set_charset('utf-8');
-		$result = $db->query("select count(*) as c from themes;");
-		return $result->fetch_all(1)[0]['c'];
-	}
-
-	/**
-	 * Возвращает количество сообщений
-	 */
-	public static function getMsgCount()
-	{
-		$db = Inquiry::getConnection();
-		$db->set_charset('utf-8');
-		$result = $db->query("select count(*) as c from themes where active = 1;");
-		return $result->fetch_all(1)[0]['c'];
-	}
 }
 ?>

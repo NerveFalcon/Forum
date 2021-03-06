@@ -3,43 +3,76 @@ include_once ROOT."/source/models/Themes.php";
 class ThemesController  
 {
 	/**
-	 * Представление всех тем с постраничным выводом
+	 * Представление поиска по всем темам с постраничным выводом
+	 * @param string $search поисковый запрос
+	 * @param int $page Номер страницы
+	 * @param int $count Количество тем на странице
 	 */
-	public static function actionThemes($page = 1, $count = 10)
+	public static function actionSearch()
 	{
-		($page < 1) ? $page = 0 : --$page;
-		$Tcount = Themes::getThemesCount();
-		if($Tcount >= ($page*$count))
+		if(Ajax::isAjax())
 		{
-			$Pcount = $Tcount / $count;
-			$themesList = Themes::getThemesList($page*$count, $count);
-			$desc = Themes::getThemesMsg(1);
-			// echo '<pre>';
-			// print_r($themesList);
-			// print_r($desc);
-			// echo '</pre>';
-			require_once(ROOT."/source/views/Themes/themes.php");
+			$list = Ajax::getSearchList($_POST['search']);
+			header('Content-Type: text/json; charset=utf-8');
+			echo json_encode($list);
 			return true;
 		}
 		else
 		{
-			require_once(ROOT."/source/views/Main/404.php");
+			$themesList = Themes::getThemesList(0, 10);
+			Router::View("/source/views/Themes/search.php", $themesList);
+			return true;
 		}
+	}
+	
+	/**
+	 * Представление всех тем с постраничным выводом
+	 * @param int $page Номер страницы
+	 * @param int $count Количество тем на странице
+	 */
+	public static function actionThemes(int $page = 1, int $count = 10)
+	{
+		$page = ($page < 1) ? 0 : $page - 1;
+		$Tcount = Themes::getThemesCount();
+		if($Tcount >= ($page*$count))
+		{
+			$Pcount = $Tcount / $count;
+			if($Tcount < $count)
+				return false;
+			$themesList = Themes::getThemesList($page*$count, $count);
+			Router::View("/source/views/Themes/themes.php", [$themesList, $Pcount]);
+			return true;
+		}
+		else
+			return false;
 	}
 
 	/**
 	 * Представление конкретной темы
+	 * @param int $id Идентификатор конкретной темы
 	 */
-	public static function actionMsg($id)
+	public static function actionMsg(int $id, int $page = 1, int $count = 10)
 	{
-		if ($id) 
+		if( ($id >= 0) && ($id < Themes::getThemesCount()))
 		{
-			$themesItem = Themes::getThemesItemById($id);
-			require_once(ROOT."/source/views/Themes/theme.php");
+			$page = ($page < 1) ? 0 : $page - 1;
+			$Tcount = Themes::getThemesCount();
+			if($Tcount >= ($page*$count))
+			{
+				$Pcount = $Tcount / $count;
+				if($Tcount < $count)
+					return false;
+				$msgList = Themes::getMsgList($id, $page*$count, $count);
+				$themesItem = Themes::getThemeInfo($id);
+				Router::View("/source/views/Themes/theme.php", [$themesItem, $Pcount]);
+				return true;
+			}
+			else
+				return false;
 		}
 		else
 		{
-			MainController::actionError();
+			Router::Error404();
 		}
 	}
 }
