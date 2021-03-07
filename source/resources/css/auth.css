@@ -13,3 +13,11 @@
 	margin-right: 2%;
 	text-align: right;
 }
+.auth .warning{
+	color: red;
+	font-size: 14px; 
+	padding: 20px; 
+	margin: 0 auto; 
+	display: block; 
+	width:400px;
+}

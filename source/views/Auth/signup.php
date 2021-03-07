@@ -1,20 +1,9 @@
-<?php 
-echo '<pre>POST ';
-print_r($_POST);
-echo '</pre>';
-?>
-<div class="auth">
-    <div style="color: red; font-size: 14px; padding: 20px; margin: 0 auto; display: block; width:400px;">
-        <?php if (isset($err) && is_array($err)): ?>
-            <ul>
-                <?php foreach ($err as $er): ?>
-                    <li> - <?php echo $er; ?></li>
-                <?php endforeach; ?>
-            </ul>
-        <?php endif; ?>
+<section class="auth">
+    <div class="warning">
+		<ul id="authErrors"></ul>
     </div>
-	<div class="registration" id="registration">
-		<form action="" method="post">
+	<div>
+		<form id="regForm" action="" method="post">
 			<fieldset>
 				<legend>Регистрация</legend>
 				<div class="changeForm">
@@ -23,19 +12,19 @@ echo '</pre>';
 				<table class="Atable">
 					<tr>
 						<td>Логин</td>
-						<td><input type="text" id="reg" name="login" required></td>
+						<td><input type="text" id="login" required placeholder="a-zA-Z0-9"></td>
 					</tr>
 					<tr>
 						<td>Email</td>
-						<td><input type="text" id="reg" name="email" required></td>
+						<td><input type="text" id="email" required placeholder="yourname@example.com"></td>
 					</tr>
 					<tr>
 						<td>Пароль</td>
-						<td><input type="password" id="reg" name="password" required></td>
+						<td><input type="password" id="password" required placeholder="6 ~ 16 символов"></td>
 					</tr>
 					<tr>
 						<td>Повторите пароль</td>
-						<td><input type="password" id="reg" name="repassword" required></td>
+						<td><input type="password" id="repassword" required placeholder="6 ~ 16 символов"></td>
 					</tr>
 					<tr>
 						<td><input class="pointer " type="reset" value="Сбросить" name="regreset" id="reg"></td>
@@ -45,4 +34,5 @@ echo '</pre>';
 			</fieldset>
 		</form>
 	</div>
-</div>
+	<script defer src="/source/resources/js/auth.js"></script>
+</section>

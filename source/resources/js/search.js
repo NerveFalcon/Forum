@@ -22,14 +22,11 @@ $('#search').on('input', function(){
 				alert(result.message);
 			}
 			return false;
-		},
-		complete: function(result){
-			// console.log(result);
 		}
 	})
 })
 function build(title, desc, id){
-	return "<div>\
+	return "<div class=\"theme\">\
 				<h2><a href=\"/theme/" + id + "\"><fromphp>" + title + "</fromphp></a></h2>\
 				<p><fromphp>" + desc + "</fromphp></p>\
 				<a href=\"/theme/" + id + "\">Подробнее</a>\

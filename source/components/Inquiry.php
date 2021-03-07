@@ -4,9 +4,15 @@ class Inquiry
 	private $db;
 	private $query;
 
+	public function __construct() {
+		$this->db = Inquiry::getConnection();
+		$this->query = $this->db->query("describe");
+	}
+
 	/**
 	 * Создание класса mysqli подключенного к БД
-	 * @param string $username из под какого пользователя подключаться к БД
+	 * @param string $username Логин пользователя для подключения к БД
+	 * @return \mysqli Соединение с БД
 	 */
 	public static function getConnection(string $username = 'falcon'){
 		$allParams = include(ROOT."/source/config/db_params.php");
@@ -21,12 +27,12 @@ class Inquiry
 	 */
 	public function Count()
 	{
-		return $this->query->num_rows();
+		return $this->query->num_rows;
 	}
 
 	/**
 	 * Перемещает указатель на выбранную строку
-	 * @param integer $i identificator
+	 * @param integer $i Номер строки
 	 *  */	
 	public function move($i)
 	{
@@ -34,7 +40,7 @@ class Inquiry
 	}
 
 	/**
-	 * Получение строки результирующей таблицы в виде массива
+	 * Получение результирующей таблицы в виде нумерованного массива
 	 * @return array
 	 */
 	public function fetch_row()
@@ -43,7 +49,7 @@ class Inquiry
 	}
 
 	/**
-	 * Получение строки результирующей таблицы в виде ассоциативного массива
+	 * Получение результирующей таблицы в виде ассоциативного массива
 	 * @return array
 	 */
 	public function fetch_assoc()
@@ -52,10 +58,9 @@ class Inquiry
 	}
 
 	/**
-	 * Получение строки результирующей таблицы в виде массива
+	 * Получение результирующей таблицы в виде массива
 	 * @param integer $flag [MYSQL_ASSOC || MYSQL_NUM || MYSQL_BOTH]
-	 * 
-	 * @return array
+	 * @return array [$flag] массив
 	 * */
 	public function fetch_array($flag)
 	{
