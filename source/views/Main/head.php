@@ -6,6 +6,8 @@
 	<link rel="stylesheet" href="/source/resources/css/style.css">
 	<link rel="stylesheet" href="/source/resources/css/auth.css">
 	<title>My forum</title>
+	<script defer src="/source/resources/js/jQuery.js"></script>
+	<script defer src="/source/resources/js/script.js"></script>
 </head>
 <body>
 	<header class="flex-container-row flex-between">
@@ -17,8 +19,13 @@
 			<a class="flex-item-row" href="/search">Поиск</a>
 			<!-- <a class="flex-item-row" href="/products">Продукты</a> -->
 		</div>
-		<div class="flex-item-row flex-item-row-last">
-			<a href="/auth" class="auth-btn">Регистрация/Авторизация</a>
+		<div id="headerAuth" class="flex-item-row flex-item-row-last">
+			<?php if(isset($_SESSION['login'])){ ?>
+				<span>Приветствую, <fromphp><?php echo $_SESSION['login']?></fromphp></span>
+				<button disabled id="logout" type="submit">Выход</button>
+			<?php } else {?>
+				<a href="/auth" class="auth-btn">Регистрация/Авторизация</a>
+			<?php }?>
 		</div>
 	</header>
 	<div id="wrapper" class="flex-container-column flex-between">

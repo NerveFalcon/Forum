@@ -12,8 +12,7 @@ class Router
 
 	/**
 	 * Получение URI запроса
-	 * @return string Передается существующий запрос без "/" на краях
-	 * @return false Если запрос не найден
+	 * @return string|false Существующий запрос без "/" на краях, если найден, иначе false
 	 */
 	public static function GetURI()
 	{
@@ -32,10 +31,8 @@ class Router
 	 */
 	public function run()
 	{
-		// Получить строку запроса
 		$uri = $this->GetURI();
 
-		// Проверить наличие запроса в routes.php
 		foreach ($this->routes as $uriPattern => $path) {
 
 			if(preg_match("~$uriPattern~", $uri))
@@ -51,13 +48,22 @@ class Router
 				//Подключить файл класса-контроллера
 				$controllerFile = ROOT."/source/controllers/".$controllerName.".php";
 				if(file_exists($controllerFile))
+				{
 					include_once($controllerFile);
+				}
+				else
+				{
+					Router::Error404();
+					exit();
+				}
 
 				// Создать объект, вызвать action
 				// $conrollerObject = new $controllerName;
 				$result = call_user_func_array(array($controllerName, $actionName), $parametres);
 				if(!$result)
+				{
 					Router::View("/source/views/Main/404.php");
+				}
 				if((ini_get('display_errors') == 1) && !Ajax::isAjax())
 				{
 					echo "$controllerName, $actionName() <= ";
@@ -85,7 +91,6 @@ class Router
 	public static function Error404()
 	{
 		Router::View("/source/views/Main/404.php");
-		return true;
 	}
 }
 ?>

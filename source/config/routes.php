@@ -1,7 +1,9 @@
 <?php
 return array(
-	'^reg&' => 'auth/signup',
-	'^auth&' => 'auth/signin',
+	'^reg$' => 'auth/signup',
+	'^auth$' => 'auth/signin',
+	'^done$' => 'auth/done',
+	'^logout$' => 'auth/logout',
 	'^theme/([0-9]+)' => 'themes/msg/$1',
 	'^themes/([0-9]+)' => 'themes/themes/$1',
 	'^search$' => 'themes/search',

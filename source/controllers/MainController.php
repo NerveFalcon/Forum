@@ -6,6 +6,8 @@ class MainController
 {
 	/**
 	 * Представление главной страницы
+	 * @return bool true если представление успешно загружено\
+	 * false если представление не загружено
 	 */
 	public static function actionIndex()
 	{

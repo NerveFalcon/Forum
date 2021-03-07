@@ -105,6 +105,12 @@ footer{
 .ColGray{
 	color:gray;
 }
+a.user{
+	color: #bdeeff;
+}
+a.user:hover{
+	color: #427a8e;
+}
 
 /* IDs */
 #wrapper{

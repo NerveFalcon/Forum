@@ -1,20 +1,9 @@
-<?php 
-echo '<pre>POST ';
-print_r($_POST);
-echo '</pre>';
-?>
-<div class="auth">
-    <div style="color: red; font-size: 14px; padding: 20px; margin: 0 auto; display: block; width:400px;">
-        <?php if (isset($err) && is_array($err)): ?>
-            <ul>
-                <?php foreach ($err as $er): ?>
-                    <li> - <?php echo $er; ?></li>
-                <?php endforeach; ?>
-            </ul>
-        <?php endif; ?>
+<section class="auth">
+    <div class="warning">
+        <ul id="authErrors"></ul>
     </div>
-	<div class="authorization" id="authorization">
-		<form action="" method="post">
+	<div>
+		<form id="authForm" action="" method="post">
 			<fieldset>
 				<legend>Авторизация</legend>
 				<div class="changeForm">
@@ -23,18 +12,25 @@ echo '</pre>';
 				<table class="Atable">
 					<tr>
 						<td>Логин</td>
-						<td><input type="text" id="auth" name="login" required></td>
+						<td><input type="text" id="login" required placeholder="a-zA-Z0-9"></td>
 					</tr>
 					<tr>
 						<td>Пароль</td>
-						<td><input type="password" id="auth" name="password" required></td>
+						<td><input type="password" id="password" required placeholder="6 ~ 16 символов"></td>
 					</tr>
 					<tr>
-						<td><input class="pointer" type="reset" value="Сбросить" id="auth" name="aureset"></td>
-						<td><input class="pointer" type="submit" value="Отправить" id="auth" name="auth"></td>
+						<td><input class="pointer" type="reset" value="Сбросить" id="authReset"></td>
+						<td><input class="pointer" type="submit" value="Отправить" id="authBtn"></td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<input type="checkbox" id="remember">
+							<label for="remember">Запомнить?</label>
+						</td>
 					</tr>
 				</table>
 			</fieldset>
 		</form>
 	</div>
-</div>
+	<script defer src="/source/resources/js/auth.js"></script>
+</section>

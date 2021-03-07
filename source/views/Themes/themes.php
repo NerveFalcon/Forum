@@ -6,7 +6,7 @@
 </div> -->
 <?php foreach ($params[0] as $themeList => $value): 
 	// if($value['id'] == 1) continue; ?>
-<div>
+<div class="theme">
 	<h2><a href="/theme/<?php echo $value['id'];?>"><fromphp><?php echo $value['title'];?></fromphp></a></h2>
 	<p><fromphp><?php echo $value['desc']; ?></fromphp></p>
 	<a href="/theme/<?php echo $value['id'];?>">Подробнее</a>
@@ -18,3 +18,44 @@
 <?php endfor;?>
 </div>
 </section>
+<!-- 1 ... [5|96] ... 100 -->
+<!-- 1 2 3 ... 100 -->
+<!-- 1... 98 99 100 -->
+<!-- < ?php 
+for ($i=0; $i < $params[1]; $i++)
+{
+	if($params[1] > 7)
+	{
+		if($params[2] < 3)
+		{
+			if($i > 3)
+			{
+				if($i = $params[1] - 1)
+					echo " ... ".($i+1);
+				continue;
+			}
+			echo ($i+1)." ";
+		}
+		else if(($params[2] > 3) && ($params[2] < $params[1] - 3))
+		{
+			echo ($i+1)." ";
+			if($i != $params[2])
+			{
+				continue;
+			}
+			else
+			{
+				echo " ... ". ($i+1) ." ... ";
+				continue;
+			}
+		}
+		else if($params[2] > $params[1])
+		{
+		}
+	}
+	else
+	{
+		echo ($i+1)." ";
+	}
+}
+?> -->
