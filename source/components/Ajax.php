@@ -1,10 +1,13 @@
 <?php 
-class Ajax{
+class Ajax
+{
+
 	/**
 	 * Проверка на Ajax-запрос
 	 * @return bool true если Ajax, иначе false
 	 */
-	public static function isAjax(){
+	public static function isAjax()
+	{
 		if	(isset($_SERVER['HTTP_X_REQUESTED_WITH']) 
 			&& !empty($_SERVER['HTTP_X_REQUESTED_WITH']) 
 			&& strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
@@ -18,7 +21,7 @@ class Ajax{
 	 * @param string $search Поисковый запрос
 	 * @return array Массив ассоциативных массивов, содержащих строки результата
 	 */
-	public static function getSearchList(string $search = '')
+	public static function getSearchThemes(string $search = '')
 	{
 		$db = Inquiry::getConnection();
 		$db->set_charset('utf-8');
@@ -31,5 +34,6 @@ class Ajax{
 							);
 		return $result->fetch_all(1);
 	}
+	
 }
 ?>

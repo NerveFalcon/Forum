@@ -19,10 +19,13 @@
 			<a class="flex-item-row" href="/search">Поиск</a>
 			<!-- <a class="flex-item-row" href="/products">Продукты</a> -->
 		</div>
-		<div id="headerAuth" class="flex-item-row flex-item-row-last">
+		<div class="flex-item-row flex-item-row-last">
 			<?php if(isset($_SESSION['login'])){ ?>
-				<span>Приветствую, <fromphp><?php echo $_SESSION['login']?></fromphp></span>
-				<button disabled id="logout" type="submit">Выход</button>
+				<div id="headerAuth">
+					Приветствую, <a href="/lk" class="pointer"><fromphp><?php echo $_SESSION['login']?></fromphp></a>
+					<br>
+					<button disabled class="pointer" id="logout">Выход</button>
+				</div>
 			<?php } else {?>
 				<a href="/auth" class="auth-btn">Регистрация/Авторизация</a>
 			<?php }?>

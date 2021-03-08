@@ -20,6 +20,5 @@ require_once(ROOT."/source/components/Router.php");
 require_once(ROOT."/source/components/Inquiry.php");
 include_once(ROOT."/source/components/Ajax.php");
 
-$router = new Router();
-$router->run();
+Router::Run(include(ROOT."/source/config/routes.php"));
 ?>

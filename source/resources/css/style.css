@@ -9,13 +9,6 @@ body{
 	background-color: black;
 	color: white;
 }
-a{
-	color: inherit;
-	text-decoration: inherit;
-}
-a:hover{
-	color: #427a8e;
-}
 header{
 	background-color: gray;
 	width: 100%;
@@ -30,13 +23,23 @@ main{
 	margin: 0 auto;
 	padding-top: 3.5rem;
 }
-fromphp{
-	font-style: italic;
-}
 footer{
 	position: sticky;
 	/* position: relative; */
 	height: 5vh;
+}
+a{
+	color: inherit;
+	text-decoration: inherit;
+}
+a:hover{
+	color: #427a8e;
+}
+fromphp{
+	font-style: italic;
+}
+button{
+	border:3px 10px;
 }
 
 /* Classes */
@@ -65,12 +68,23 @@ footer{
 	text-align: left;
 	margin-left: 2%;
 }
-.flex-item-last{
+.flex-item-row-last{
 	text-align: right;
 	margin-right: 2%;
 }
 .flex-grow2{
 	flex-grow: 2;
+}
+.grid{
+	display: grid;
+	/* Ширина линий */
+	gap: 1rem;
+	/* grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); */
+	grid: "main" "side" 1fr / 2fr 1fr;
+	/* Содержимое сетки относительно ячеек */
+	place-items: stretch;
+	/* Сетка относительно контейнера */
+	place-content: stretch;
 }
 .logo{
 	min-width: 50px;
@@ -111,6 +125,9 @@ a.user{
 a.user:hover{
 	color: #427a8e;
 }
+.currentPage{
+	color: #427a8e;
+}
 
 /* IDs */
 #wrapper{
@@ -119,4 +136,9 @@ a.user:hover{
 #search{
 	width:100%;
 	font-size: large;
+}
+#headerAuth{
+	text-align: center;
+    width: max-content;
+    display: inline-block;
 }

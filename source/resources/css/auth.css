@@ -1,19 +1,19 @@
-.auth table{
+#auth table{
 	border:0;
 	margin: auto;
 }
-.auth td{
+#auth td{
 	border:0;
 	text-align:right;
 }
-.auth td:last-child{
+#auth td:last-child{
 	text-align: center;
 }
-.auth .changeForm{
+#auth .changeForm{
 	margin-right: 2%;
 	text-align: right;
 }
-.auth .warning{
+#auth .warning{
 	color: red;
 	font-size: 14px; 
 	padding: 20px; 

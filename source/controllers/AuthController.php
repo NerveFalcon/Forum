@@ -1,10 +1,11 @@
 <?php 
 include_once ROOT."/source/models/Auth.php"; 
 /**
- * Контроллер отвечающий за функции авторизации
+ * Контроллер отвечающий за представление авторизации
  */
 class AuthController
 {
+	
 	/**
 	 * Представление авторизации
 	 * @return bool true если представление успешно загружено\
@@ -90,6 +91,25 @@ class AuthController
 	}
 
 	/**
+	 * Представление отображающееся при успешной регистрации\
+	 * Доступно только при переходе со страницы регистрации
+	 * @return bool true если представление успешно загружено\
+	 * false если представление не загружено
+	 */
+	public static function actionDone()
+	{
+		if($_SERVER['HTTP_REFERER'] == 'http://php.my/reg')
+		{
+			Router::View("/source/views/Auth/done.php");
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/** Ajax
 	 * Ajax-метод выхода из учтной записи
 	 * @return bool true если выход успешно произведен\
 	 * false если пользователь не авторизован\ 
@@ -114,21 +134,4 @@ class AuthController
 		}
 	}
 
-	/**
-	 * Представление отображающееся при успешной регистрации\
-	 * Доступно только при переходе со страницы регистрации
-	 * @return bool true если представление успешно загружено\
-	 * false если представление не загружено
-	 */
-	public static function actionDone(){
-		if($_SERVER['HTTP_REFERER'] == 'http://php.my/reg')
-		{
-			Router::View("/source/views/Auth/done.php");
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
 }

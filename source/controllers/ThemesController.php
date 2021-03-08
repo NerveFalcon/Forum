@@ -1,7 +1,11 @@
 <?php
 include_once ROOT."/source/models/Themes.php"; 
+/**
+ * Контроллер отвечающий за представление тем
+ */
 class ThemesController  
 {
+
 	/**
 	 * Представление поиска по всем темам с постраничным выводом
 	 * @return bool true если представление успешно загружено\
@@ -12,7 +16,7 @@ class ThemesController
 		if(Ajax::isAjax())
 		{
 			header('Content-Type: text/json; charset=utf-8');
-			$list = Ajax::getSearchList($_POST['search']);
+			$list = Ajax::getSearchThemes($_POST['search']);
 			echo json_encode($list);
 			return true;
 		} 
@@ -31,7 +35,7 @@ class ThemesController
 	 * @return bool true если представление успешно загружено\
 	 * false если представление не загружено
 	 */
-	public static function actionThemes(int $page = 1, int $count = 10)
+	public static function actionThemes(int $page = 1, int $count = 5)
 	{
 		$page = ($page < 1) ? 0 : $page - 1;
 		$themesCount = Themes::getActiveThemesCount();
@@ -41,7 +45,7 @@ class ThemesController
 			{
 				return false;
 			}
-			$Pcount = $themesCount / $count;
+			$Pcount = ceil($themesCount / $count);
 			$activeThemes = Themes::getActiveThemesPage($page*$count, $count);
 			Router::View("/source/views/Themes/themes.php", [$activeThemes, $Pcount, $page+1]);
 			return true;
@@ -65,7 +69,7 @@ class ThemesController
 		if(( $id >= 0 ) && ( $id <= Themes::getAllThemesCount() ))
 		{
 			$page = ($page < 1) ? 0 : $page - 1;
-			$msgCount = Themes::getMsgCount($id);
+			$msgCount = Themes::getMsgCountByThemeId($id);
 			if($msgCount < $count)
 			{
 				$Pcount = $msgCount;
@@ -74,7 +78,7 @@ class ThemesController
 			{
 				$Pcount = $msgCount / $count;
 			}
-			$msgList = Themes::getMsgByThemeId($id, $page*$count, $count);
+			$msgList = Themes::getMsgPageByThemeId($id, $page*$count, $count);
 			$themeItem = Themes::getThemeById($id);
 			Router::View("/source/views/Themes/theme.php", [$themeItem, $Pcount, $msgList]);
 			return true;
@@ -84,6 +88,7 @@ class ThemesController
 			return false;
 		}
 	}
+	
 }
 
 ?>

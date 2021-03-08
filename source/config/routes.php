@@ -1,5 +1,6 @@
 <?php
 return array(
+	'^lk' => 'user/person',
 	'^reg$' => 'auth/signup',
 	'^auth$' => 'auth/signin',
 	'^done$' => 'auth/done',

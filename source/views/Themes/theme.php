@@ -1,4 +1,4 @@
-<section class="topic">
+<section id="topic">
 <div class="theme">
 	<span class="fontmin">
 		<a class="user" href="/user/<?php echo $params[0]['id_creator'] ?>"><fromphp><?php echo $params[0]['author']?></fromphp></a>

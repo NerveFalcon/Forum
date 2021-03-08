@@ -1,5 +1,5 @@
 <input id="search" type="text" placeholder="Введите название темы">
-<section class="themes">
+<section id="themes">
 <?php foreach ($params as $themeList => $value): 
 	// if($value['id'] == 1) continue; ?>
 <div class="theme">

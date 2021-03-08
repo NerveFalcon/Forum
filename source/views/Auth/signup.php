@@ -1,4 +1,4 @@
-<section class="auth">
+<section id="auth">
     <div class="warning">
 		<ul id="authErrors"></ul>
     </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost
--- Время создания: Мар 06 2021 г., 00:59
+-- Время создания: Мар 07 2021 г., 22:17
 -- Версия сервера: 8.0.23
 -- Версия PHP: 7.3.27-1~deb10u1
 
@@ -30,8 +30,8 @@ SET time_zone = "+00:00";
 CREATE TABLE `files` (
   `id` int NOT NULL,
   `id_message` int NOT NULL,
-  `name` varchar(64) NOT NULL,
-  `url` varchar(256) NOT NULL
+  `name` varchar(64) COLLATE utf8mb4_0900_as_cs NOT NULL,
+  `url` varchar(256) COLLATE utf8mb4_0900_as_cs NOT NULL
 ) ;
 
 --
@@ -55,7 +55,7 @@ CREATE TABLE `messages` (
   `id_theme` int NOT NULL,
   `id_creator` int DEFAULT NULL,
   `date` datetime NOT NULL,
-  `text` text NOT NULL
+  `text` text COLLATE utf8mb4_0900_as_cs NOT NULL
 ) ;
 
 --
@@ -80,7 +80,7 @@ CREATE TABLE `premission` (
   `id` int NOT NULL,
   `id_theme` int NOT NULL,
   `id_user` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
 
 --
 -- Дамп данных таблицы `premission`
@@ -107,8 +107,8 @@ INSERT INTO `premission` (`id`, `id_theme`, `id_user`) VALUES
 
 CREATE TABLE `roles` (
   `id` int NOT NULL,
-  `name` varchar(32) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `name` varchar(32) COLLATE utf8mb4_0900_as_cs DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
 
 --
 -- Дамп данных таблицы `roles`
@@ -128,11 +128,11 @@ INSERT INTO `roles` (`id`, `name`) VALUES
 CREATE TABLE `themes` (
   `id` int NOT NULL,
   `id_creator` int DEFAULT NULL,
-  `title` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `description` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `title` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_as_cs NOT NULL,
+  `description` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_as_cs NOT NULL,
   `date` datetime NOT NULL,
   `active` bit(1) NOT NULL DEFAULT b'0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
 
 --
 -- Дамп данных таблицы `themes`
@@ -169,11 +169,11 @@ INSERT INTO `themes` (`id`, `id_creator`, `title`, `description`, `date`, `activ
 
 CREATE TABLE `users` (
   `id` int NOT NULL,
-  `login` varchar(32) NOT NULL,
-  `password` char(64) NOT NULL,
-  `email` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `login` varchar(32) COLLATE utf8mb4_0900_as_cs NOT NULL,
+  `password` char(64) COLLATE utf8mb4_0900_as_cs NOT NULL,
+  `email` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_as_cs NOT NULL,
   `id_role` int NOT NULL DEFAULT '3',
-  `fio` varchar(64) DEFAULT NULL,
+  `fio` varchar(64) COLLATE utf8mb4_0900_as_cs DEFAULT NULL,
   `age` int DEFAULT NULL,
   `ban` bit(1) NOT NULL DEFAULT b'0'
 ) ;
@@ -193,7 +193,9 @@ INSERT INTO `users` (`id`, `login`, `password`, `email`, `id_role`, `fio`, `age`
 (8, 'OriginalNickname', '0b0784421281ecfe866502b34af4758174330fed93802db72c46d208f53bf0fd', 'originalemail@mail.com', 3, NULL, NULL, b'0'),
 (9, 'YourNightMare', '4c53d03223bfe6aa3cf620f743ee0f22fc7ab49afb5fbd0b701b914ab8dadc9a', 'cryingdevil@vivaldi.com', 3, NULL, 88, b'1'),
 (10, 'test', '7b3d979ca8330a94fa7e9e1b466d8b99e0bcdea1ec90596c0dcc8d7ef6b4300c', 'test@test.com', 3, NULL, NULL, b'0'),
-(11, 'test1', '7b3d979ca8330a94fa7e9e1b466d8b99e0bcdea1ec90596c0dcc8d7ef6b4300c', 'test1@test.com', 3, NULL, NULL, b'0');
+(11, 'test1', '7b3d979ca8330a94fa7e9e1b466d8b99e0bcdea1ec90596c0dcc8d7ef6b4300c', 'test1@test.com', 3, NULL, NULL, b'0'),
+(12, 'falcon', 'c2acd4e1eaa34e890a34d79d89fcb5d9dcc37d126a55ef3a7ad009cf22f43ad2', 'suraevoleg@gmail.com', 1, 'Сураев Олег Николаевич', 18, b'0'),
+(13, 'MyLogin', 'dc1e7c03e162397b355b6f1c895dfdf3790d98c10b920c55e91272b8eecada2a', 'ASDA@asda.sa', 3, NULL, NULL, b'0');
 
 --
 -- Индексы сохранённых таблиц

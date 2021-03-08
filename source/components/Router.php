@@ -2,13 +2,6 @@
 
 class Router
 {
-	private $routes;
-
-	public function __construct() 
-	{
-		$routesPath = ROOT."/source/config/routes.php";
-		$this->routes = include($routesPath);
-	}
 
 	/**
 	 * Получение URI запроса
@@ -18,9 +11,7 @@ class Router
 	{
 		if(!empty($_SERVER["REQUEST_URI"]))
 		{
-			$uri = trim($_SERVER["REQUEST_URI"], "/");
-			$uri = str_replace("index.php/", "", $uri);
-			return $uri;
+			return trim($_SERVER["REQUEST_URI"], "/");
 		}
 		else
 			return false;
@@ -28,12 +19,13 @@ class Router
 
 	/**
 	 * Обработка URI и активация контроллера
+	 * @param array $routes Массив с шаблонами URI и ответственным методом контроллера
 	 */
-	public function run()
+	public static function Run(array $routes)
 	{
-		$uri = $this->GetURI();
+		$uri = Router::GetURI();
 
-		foreach ($this->routes as $uriPattern => $path) {
+		foreach ($routes as $uriPattern => $path) {
 
 			if(preg_match("~$uriPattern~", $uri))
 			{
@@ -64,10 +56,18 @@ class Router
 				{
 					Router::View("/source/views/Main/404.php");
 				}
+				//debug info
 				if((ini_get('display_errors') == 1) && !Ajax::isAjax())
 				{
-					echo "$controllerName, $actionName() <= ";
-					print_r($parametres);
+					echo '<div class="debug">';
+						echo '<pre>session: ';
+							print_r($_SESSION);
+						echo 'coockie: ';
+							print_r($_COOKIE);
+						echo '</pre>';
+						echo "$controllerName, $actionName() <= ";
+						print_r($parametres);
+					echo '</div>';
 				}
 				exit;
 			}
@@ -77,6 +77,7 @@ class Router
 	/**
 	 * Отображение страницы
 	 * @param string $path Путь к отображаемому документу
+	 * @param mixed $params Параметры передаваемые на страницу
 	 */
 	public static function View(string $path, $params = null)
 	{
