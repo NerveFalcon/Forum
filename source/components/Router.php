@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Класс-маршрутизатор
+ */
 class Router
 {
 
@@ -94,4 +96,3 @@ class Router
 		Router::View("/source/views/Main/404.php");
 	}
 }
-?>

@@ -1,10 +1,11 @@
-<?php 
+<?php
 class Inquiry
 {
 	private $db;
 	private $query;
 
-	public function __construct() {
+	public function __construct()
+	{
 		$this->db = Inquiry::getConnection();
 		$this->query = $this->db->query("describe");
 	}
@@ -14,11 +15,15 @@ class Inquiry
 	 * @param string $username Логин пользователя для подключения к БД
 	 * @return \mysqli Соединение с БД
 	 */
-	public static function getConnection(string $username = 'falcon'){
-		$allParams = include(ROOT."/source/config/db_params.php");
+	public static function getConnection(string $username = 'falcon')
+	{
+		$allParams = include(ROOT . "/source/config/db_params.php");
 		$params = $allParams[$username];
 
-		return new mysqli($params['host'], $params['username'], $params['passwd'], $params['dbname']);
+		$db =  new mysqli($params['host'], $params['username'], $params['passwd'], $params['dbname']);
+		$db->set_charset("utf-8");
+
+		return $db;
 	}
 
 	/**
@@ -33,7 +38,7 @@ class Inquiry
 	/**
 	 * Перемещает указатель на выбранную строку
 	 * @param integer $i Номер строки
-	 *  */	
+	 *  */
 	public function move($i)
 	{
 		return $this->query->data_seek($i);
@@ -72,4 +77,3 @@ class Inquiry
 		$this->db->close();
 	}
 }
-?>

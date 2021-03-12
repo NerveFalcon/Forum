@@ -12,21 +12,16 @@ body{
 header{
 	background-color: gray;
 	width: 100%;
-	/* min-height: 50px; */
 	height: 3rem;
 	position:fixed;
 	top: 0px;
 	left: 0px;
+	z-index: 50;
 }
 main{
 	width: 60%;
 	margin: 0 auto;
 	padding-top: 3.5rem;
-}
-footer{
-	position: sticky;
-	/* position: relative; */
-	height: 5vh;
 }
 a{
 	color: inherit;
@@ -38,8 +33,10 @@ a:hover{
 fromphp{
 	font-style: italic;
 }
-button{
-	border:3px 10px;
+input[type="text"]{
+	border:1px;
+	border-radius: 3px;
+	padding: 6px 8px;
 }
 
 /* Classes */
@@ -141,4 +138,20 @@ a.user:hover{
 	text-align: center;
     width: max-content;
     display: inline-block;
+}
+#copyright{
+	z-index: 1;
+	position: relative;
+}
+#topicTitle{
+	width: 39rem;
+}
+#topicDescription{
+	width: 40rem;
+}
+#createTopic fieldset > div{
+	width: 42rem;
+}
+#createTopic div{
+	margin: 10px auto;
 }

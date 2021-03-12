@@ -21,19 +21,18 @@ class Ajax
 	 * @param string $search Поисковый запрос
 	 * @return array Массив ассоциативных массивов, содержащих строки результата
 	 */
-	public static function getSearchThemes(string $search = '')
+	public static function getSearchThemes(string $search)
 	{
 		$db = Inquiry::getConnection();
-		$db->set_charset('utf-8');
 		$result = $db->query("select id, title, description as `desc` "
 							."from themes "
 							."where active = 1 "
 							."and title like '%$search%' "
 							."order by id "
-							."limit 10"
+							."limit 10 "
 							);
+		$db->close();
 		return $result->fetch_all(1);
 	}
 	
 }
-?>

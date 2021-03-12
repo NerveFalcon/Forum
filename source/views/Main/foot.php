@@ -1,6 +1,6 @@
 		</main>
 		<footer>
-			<div class="ColGray Tright">
+			<div id="copyright" class="ColGray Tright">
 				created by NerveFalcon
 			</div>
 		</footer>
