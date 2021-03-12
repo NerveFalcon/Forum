@@ -1,37 +1,40 @@
-<?php 
-include_once ROOT."/source/models/Auth.php"; 
+<?php
+include_once ROOT . "/source/models/Auth.php";
 /**
- * Контроллер отвечающий за функции авторизации
+ * Контроллер отвечающий за представление авторизации
  */
 class AuthController
 {
+
 	/**
 	 * Представление авторизации
+	 * @link http://www.php.my/auth
 	 * @return bool true если представление успешно загружено\
 	 * false если представление не загружено
 	 */
 	public static function actionSignin()
 	{
-		if(isset($_SESSION['login']))
+		if (isset($_SESSION['login']))
 		{
-			return false;
+			header("Location: /");
+			return true;
 		}
-		if(Ajax::isAjax())
+		if (Ajax::isAjax())
 		{
 			header('Content-Type: text/json; charset=utf-8');
 			$login = trim($_POST['login']);
 			$pass = trim($_POST['password']);
 			$check = Auth::checkAuth($login, $pass);
-			if(empty($check))
+			if (empty($check))
 			{
 				$_SESSION['login'] = $login;
-				$ok = "ok";
-				if($_POST['remember'])
+				$_SESSION['id'] = Auth::getIdByLogin($login);
+				$ok = "OK";
+				if ($_POST['remember'])
 				{
 					setcookie("login", $login, time() + 3600 * 24 * 7);
-					$ok .= "rem";
 				}
-				echo json_encode("OK");
+				echo json_encode($ok);
 			}
 			else
 			{
@@ -48,16 +51,18 @@ class AuthController
 
 	/**
 	 * Представление регистрации
+	 * @link http://www.php.my/reg
 	 * @return bool true если представление успешно загружено\
 	 * false если представление не загружено
 	 */
 	public static function actionSignup()
 	{
-		if(isset($_SESSION['login']))
+		if (isset($_SESSION['login']))
 		{
-			return false;
+			header("Location: /");
+			return true;
 		}
-		if(Ajax::isAjax())
+		if (Ajax::isAjax())
 		{
 			header('Content-Type: text/json; charset=utf-8');
 			$login = trim($_POST['login']);
@@ -65,9 +70,9 @@ class AuthController
 			$repass = trim($_POST['repassword']);
 			$email = trim($_POST['email']);
 			$check = Auth::checkReg($login, $email, $pass, $repass);
-			if(empty($check))
+			if (empty($check))
 			{
-				if(Auth::setReg($login, $pass, $email))
+				if (Auth::setReg($login, $pass, $email))
 				{
 					echo json_encode("OK");
 				}
@@ -81,15 +86,35 @@ class AuthController
 				echo json_encode($check);
 			}
 			return true;
-		} 
-		else 
-		{ 
+		}
+		else
+		{
 			Router::View("/source/views/Auth/signup.php");
 			return true;
 		}
 	}
 
 	/**
+	 * Представление отображающееся при успешной регистрации\
+	 * Доступно только при переходе со страницы регистрации
+	 * @link http://www.php.my/done
+	 * @return bool true если представление успешно загружено\
+	 * false если представление не загружено
+	 */
+	public static function actionDone()
+	{
+		if ($_SERVER['HTTP_REFERER'] == 'http://php.my/reg')
+		{
+			Router::View("/source/views/Auth/done.php");
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/** Ajax
 	 * Ajax-метод выхода из учтной записи
 	 * @return bool true если выход успешно произведен\
 	 * false если пользователь не авторизован\ 
@@ -97,33 +122,15 @@ class AuthController
 	 */
 	public static function actionLogout()
 	{
-		if(!isset($_SESSION['login']))
+		if (!isset($_SESSION['login']))
 		{
 			return false;
 		}
-		if(Ajax::isAjax())
+		if (Ajax::isAjax())
 		{
 			setcookie("login", '', time() - 1);
 			session_unset();
 			echo json_encode('OK');
-			return true;
-		} 
-		else
-		{
-			return false;
-		}
-	}
-
-	/**
-	 * Представление отображающееся при успешной регистрации\
-	 * Доступно только при переходе со страницы регистрации
-	 * @return bool true если представление успешно загружено\
-	 * false если представление не загружено
-	 */
-	public static function actionDone(){
-		if($_SERVER['HTTP_REFERER'] == 'http://php.my/reg')
-		{
-			Router::View("/source/views/Auth/done.php");
 			return true;
 		}
 		else

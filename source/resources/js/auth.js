@@ -1,9 +1,9 @@
-$('#authForm').on('submit', function(e){
+$('#authForm').on('submit', function(e) {
 	e.preventDefault();
 	let login = $('#login').val();
 	let password = $('#password').val();
 	let check = $('#remember').is(":checked");
-	$.ajax({ 
+	$.ajax({
 		url: '/auth',
 		type: 'POST',
 		data: {
@@ -12,29 +12,29 @@ $('#authForm').on('submit', function(e){
 			remember: check
 		},
 		dataType: 'json',
-		success: function(result){
+		success: function(result) {
 			console.log(result);
-			if(result == 'OK'){
+			if (result == 'OK') {
 				document.location.href = "/";
 				return true;
 			}
-			else{
+			else {
 				buildAuthError(result[0]);
 			}
 		},
-		complete:function(res){
+		complete: function(res) {
 			console.log(res);
 		}
 	})
 })
 
-$('#regForm').on('submit', function(e){
+$('#regForm').on('submit', function(e) {
 	e.preventDefault();
 	let login = $('#login').val();
 	let email = $('#email').val();
 	let password = $('#password').val();
 	let repassword = $('#repassword').val();
-	$.ajax({ 
+	$.ajax({
 		url: '/reg',
 		type: 'POST',
 		data: {
@@ -44,22 +44,22 @@ $('#regForm').on('submit', function(e){
 			repassword: repassword
 		},
 		dataType: 'json',
-		success: function(result){
+		success: function(result) {
 			console.log(result);
-			if(result == 'OK'){
+			if (result == 'OK') {
 				document.location.href = "/done";
 				return true;
 			}
-			else{
+			else {
 				buildAuthError(result[0]);
 			}
 		},
-		complete:function(res){
+		complete: function(res) {
 			console.log(res);
 		}
 	})
 })
 
-function buildAuthError($string){
-	$('#authErrors').html("<li>"+$string+"</li>");
+function buildAuthError(string) {
+	$('#authErrors').html("<li>" + string + "</li>");
 }

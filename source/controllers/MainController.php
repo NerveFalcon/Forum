@@ -4,8 +4,10 @@
  */
 class MainController
 {
+	
 	/**
 	 * Представление главной страницы
+	 * @link http://www.php.my/
 	 * @return bool true если представление успешно загружено\
 	 * false если представление не загружено
 	 */
@@ -16,4 +18,3 @@ class MainController
 	}
 
 }
-?>

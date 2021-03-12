@@ -1,7 +1,10 @@
-<?php 
+<?php
 session_start();
 
-if(!isset($_SESSION['login']) && isset($_COOKIE['login']) && ($_COOKIE['login'] != null))
+if (!isset($_SESSION['login']) 
+	&& isset($_COOKIE['login']) 
+	&& ($_COOKIE['login'] != null)
+	)
 {
 	$_SESSION['login'] = $_COOKIE['login'];
 }
@@ -16,10 +19,20 @@ error_reporting(E_ALL);
 
 #	2. Подключение файлов системы
 define("ROOT", dirname(__FILE__));
-require_once(ROOT."/source/components/Router.php");
-require_once(ROOT."/source/components/Inquiry.php");
-include_once(ROOT."/source/components/Ajax.php");
+if (ini_get('display_errors') == 0)
+{
+	/** Релиз */
+	define('ITEMS_ON_PAGE', 10);
+}
+else
+{
+	/** Отладка */
+	define('ITEMS_ON_PAGE', 2);
+}
 
-$router = new Router();
-$router->run();
-?>
+
+require_once(ROOT . "/source/components/Router.php");
+require_once(ROOT . "/source/components/Inquiry.php");
+include_once(ROOT . "/source/components/Ajax.php");
+
+Router::Run(include(ROOT . "/source/config/routes.php"));
